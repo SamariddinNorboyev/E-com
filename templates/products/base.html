@@ -48,6 +48,7 @@
 <body>
     <header class="header">
         <a href="{% url 'products:home_page' %}" class="header_left">Home</a>
+        <a href="{% url 'products:moderation' %}" class="header_left">Moderation</a>
         <a href="{% url 'order:order_home' %}" class="header_left">Buy</a>
         <form action="" method="get" class="header_right">
             <input type="search" name="q" value="{{q}}" class="form-control">

@@ -49,7 +49,7 @@
                                     {% endif %}
                                     {% endif %}
                                     {% empty %}
-                                    0
+
                                     {% endfor %}
                                     {% for o in orders %}
                                     {% if o.product_id == i %}
@@ -58,14 +58,14 @@
                                     </b>
                                     {% endif %}
                                     {% empty %}
-                                    0
+
                                     {% endfor %}
                                     {% for o in orders %}
                                     {% if o.product_id == i %}
                                     <li class="page-item"><a class="page-link" href="{% url 'order:addorder' i.id %}">+</a></li>
                                     {% endif %}
                                     {% empty %}
-                                    0
+
                                     {% endfor %}
                                 </ul>
                             </nav>

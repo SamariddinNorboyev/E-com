@@ -21,7 +21,7 @@
 {% block body %}
 
 <div class="form" style="display: grid;grid-template-columns: repeat(4, 1fr);">
-    {% for i in products%}
+    {% for i in products %}
         <div style="border: 1px solid black; width: 400px; display: grid; justify-content: center;">
             <a href="{% url 'order:add_to_order' i.id %}" style="margin: 1vh;">
                 <button type="submit">
@@ -47,7 +47,7 @@
                         {% endif %}
                         {% endif %}
                         {% empty %}
-                        0
+
                         {% endfor %}
                         {% for o in orders %}
                         {% if o.product_id == i %}
@@ -56,14 +56,14 @@
                         </b>
                         {% endif %}
                         {% empty %}
-                        0
+
                         {% endfor %}
                         {% for o in orders %}
                         {% if o.product_id == i %}
                         <li class="page-item"><a class="page-link" href="{% url 'order:add_to_order' i.id %}">+</a></li>
                         {% endif %}
                         {% empty %}
-                        0
+
                         {% endfor %}
                     </ul>
                 </nav>
