@@ -1,26 +1,20 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
-
-# Python
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-*.egg
-*.egg-info/
-dist/
-build/
+*.so
 
-# Virtual Environment
-env/
+# Django stuff:
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
 
-# IDE
-.idea/
-.vscode/
-
-# Env files
+# Virtual environments
+venv/
 .env
+*.env
+
+# VSCode
+.vscode/
