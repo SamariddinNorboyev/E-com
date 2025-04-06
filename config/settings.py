@@ -133,10 +133,15 @@ AUTH_USER_MODEL = 'users.CustomUserModel'
 LOGIN_URL = '/users/login/'
 
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
-GOOGLE_CLIENT_ID="563263286229-o06c2jbf9rv2kj5f88gt6fa6edusndq5.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET="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"
+GOOGLE_CLIENT_ID=os.getenv("CLIENT_ID")
+GOOGLE_CLIENT_SECRET=os.getenv("SECRET_KEY")
+
 GOOGLE_REDIRECT_URI="http://localhost:8000/users/google/login/callback/"
 GOOGLE_AUTH_URL="https://accounts.google.com/o/oauth2/auth"
 GOOGLE_USER_INFO_URL="https://www.googleapis.com/oauth2/v1/userinfo"
