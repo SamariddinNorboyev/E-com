@@ -1,0 +1,23 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+    <title>{% trans "Login" %}</title>
+{% endblock %}
+
+{% block body %}
+    <div style="margin: 3vh; width: 50%;">
+        <h1>{% trans "Profile" %}</h1>
+        <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% endif %}" alt="">
+        <h3>{% trans "Email" %}: <b>{{  user.email  }}</b></h3>
+        <h3>{% trans "First Name" %}: <b>{{  user.first_name  }}</b></h3>
+        <h3>{% trans "Last Name" %}: <b>{{  user.last_name  }}</b></h3>
+        <h3>{% trans "Bio" %}: <b>{{  user.profile.bio  }}</b></h3>
+        <h3>{% trans "Phone" %}: <b>{{  user.profile.phone  }}</b></h3>
+        <a href="{% url 'order:order_home' %}" class="btn btn-secondary">{% trans "Back" %}</a>
+        <a href="{% url 'users:reset_password' %}" class="btn btn-warning">{% trans "Change Password" %}</a>
+        <a href="{% url 'profiles:profiles' %}" class="btn btn-primary">{% trans "Change Profile" %}</a>
+        <a href="{% url 'users:logout' %}" class="btn btn-danger">{% trans "Logout" %}</a>
+    </div>
+
+{% endblock %}

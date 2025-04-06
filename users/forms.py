@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
+from django.db.models.signals import post_save
+
+from profiles.signals import my_signal
 from users.models import CustomUserModel, Code
 from django.utils import timezone
 
@@ -31,6 +34,7 @@ class RegistrForm(forms.ModelForm):
         pass
     def save(self):
         user = CustomUserModel.objects.create_user(**self.cleaned_data)
+        post_save.connect(my_signal, sender = CustomUserModel)
         return user
 
 

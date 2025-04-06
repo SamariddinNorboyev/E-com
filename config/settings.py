@@ -43,11 +43,13 @@ INSTALLED_APPS = [
     'products',
     'order',
     'users',
+    'profiles',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -118,6 +120,16 @@ USE_I18N = True
 USE_TZ = True
 
 
+LANGUAGES = [
+    ('en', 'English'),
+    ('uz', 'Uzbek'),
+    ('ru', 'Russian'),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale/',
+]
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
@@ -154,3 +166,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "samariddin.grex@gmail.com"
 EMAIL_HOST_PASSWORD = "jrtc ital aqsy ereu"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

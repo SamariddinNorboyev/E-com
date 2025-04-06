@@ -1,4 +1,5 @@
 import requests
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views import View
 from config import settings
@@ -34,7 +35,6 @@ class CreateView(View):
     def post(self, request):
         form = RegistrForm(request.POST)
         if form.is_valid():
-            print('asdfasdf')
             form.save()
             return redirect('users:login')
         form = RegistrForm()
@@ -109,3 +109,8 @@ class RestorePasswordView(View):
             return redirect('users:login')
         form = RestorePasswordForm()
         return render(request, 'users/restore-password.html', {'form': form})
+
+@login_required
+def profile(request):
+    user = request.user
+    return render(request, 'users/profile.html', {'user': user})
