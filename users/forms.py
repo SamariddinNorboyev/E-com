@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.db.models.signals import post_save
-
+from .models import Gallery
 from profiles.signals import my_signal
 from users.models import CustomUserModel, Code
 from django.utils import timezone
@@ -68,3 +68,10 @@ class RestorePasswordForm(forms.Form):
         if not Code.objects.filter(code = code, owner = user, expiration_date__gt=timezone.now()):
             raise ValidationError(f'code topilmadi {timezone.now()}')
         return cleaned_data
+
+
+
+class GalleryUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Gallery
+        fields = ['image']

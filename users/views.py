@@ -1,12 +1,17 @@
 import requests
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models.signals import post_save
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views import View
 from config import settings
-from .forms import LoginForm, RegistrForm, ResetPasswordForm, RestorePasswordForm
+from .forms import LoginForm, RegistrForm, ResetPasswordForm, RestorePasswordForm, GalleryUpdateForm
 from .models import CustomUserModel
 from django.contrib.auth import login, logout
-from .service import send_email_in_thread
+from .service import send_email_in_thread, file_email_thread
+from .models import Gallery
+from .signals import file_create
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 # Create your views here.
 class LoginView(View):
@@ -76,7 +81,36 @@ def google_callback(request):
     return redirect('products:home_page')
 
 
+class ImageUpdatedView(PermissionRequiredMixin, View):
+    permission_required = 'users.add_gallery'
 
+    def get(self, request):
+        print(request.user)
+        user = request.user
+        form = GalleryUpdateForm()
+        images = Gallery.objects.filter(user = user)
+        return render(request, 'users/images.html', {'form':form, 'images': images})
+    def post(self, request):
+        user = request.user
+        images = Gallery.objects.filter(user=user)
+        if len(images)>=5:
+            raise ValueError('You can\'t create more than 5 file')
+        form = GalleryUpdateForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit = False)
+            image.user = request.user
+            image.save()
+            post_save.connect(file_create, sender = Gallery)
+            return redirect('users:images')
+        form = GalleryUpdateForm()
+        images = Gallery.objects.filter(user = user)
+        return render(request, 'users/images.html', {'form':form, 'images': images})
+
+
+def delete_image(request, id):
+    image = Gallery.objects.filter(id = id).first()
+    image.delete()
+    return redirect('users:images')
 
 
 class ResetPasswordView(View):
@@ -114,3 +148,7 @@ class RestorePasswordView(View):
 def profile(request):
     user = request.user
     return render(request, 'users/profile.html', {'user': user})
+
+
+
+

@@ -53,10 +53,12 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'users.middlewares.AutoLogoutMiddleware',
+    # 'users.middlewares.AutoLogoutMiddleware',
+    'users.middlewares.Max5Images',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'config.urls'
 TEMPLATES = [

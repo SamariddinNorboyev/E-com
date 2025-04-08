@@ -26,3 +26,17 @@ def send_simple_email(to):
 def send_email_in_thread(to):
     thread = threading.Thread(target=send_simple_email, args=(to,))
     thread.start()
+
+
+def file_upload_send_email(to):
+    send_mail(
+        subject='You have created a file!',
+        message='File is created',
+        from_email='samariddin.grex@gmail.com',
+        recipient_list=[to],
+        fail_silently=False,
+    )
+
+def file_email_thread(to):
+    thread = threading.Thread(target=file_upload_send_email, args=(to,))
+    thread.start()

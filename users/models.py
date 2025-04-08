@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.forms.fields import ImageField
 from django.utils import timezone
 from datetime import timedelta
 
@@ -51,3 +52,12 @@ class Code(models.Model):
     expiration_date = models.DateTimeField(default=time_default)
     def __str__(self):
         return str(self.code)
+
+
+
+class Gallery(models.Model):
+    image = models.ImageField(upload_to='pictures')
+    user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE, related_name='images')
+
+    def __str__(self):
+        return str(self.user.email)
