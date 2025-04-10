@@ -1,6 +1,4 @@
-
 from django.urls import path
-from order.urls import app_name
 from . import views
 app_name = 'users'
 urlpatterns = [
@@ -10,6 +8,7 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('register/', views.CreateView.as_view(), name='register'),
     path('reset-password/', views.ResetPasswordView.as_view(), name='reset_password'),
+    path('change-password/', views.ChangePasswordView.as_view(), name='change_password'),
     path('restore-password/', views.RestorePasswordView.as_view(), name='restore_password'),
     path('images/', views.ImageUpdatedView.as_view(), name='images'),
     path('profile', views.profile, name='profile'),

@@ -15,7 +15,8 @@
         <h3>{% trans "Bio" %}: <b>{{  user.profile.bio  }}</b></h3>
         <h3>{% trans "Phone" %}: <b>{{  user.profile.phone  }}</b></h3>
         <a href="{% url 'order:order_home' %}" class="btn btn-secondary">{% trans "Back" %}</a>
-        <a href="{% url 'users:reset_password' %}" class="btn btn-warning">{% trans "Change Password" %}</a>
+        <a href="{% url 'users:change_password' %}" class="btn btn-warning">{% trans "Change Password" %}</a>
+        <a href="{% url 'users:reset_password' %}" class="btn btn-info">{% trans "Reset Password" %}</a>
         <a href="{% url 'profiles:profiles' %}" class="btn btn-primary">{% trans "Change Profile" %}</a>
         <a href="{% url 'users:logout' %}" class="btn btn-danger">{% trans "Logout" %}</a>
     </div>

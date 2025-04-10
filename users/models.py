@@ -33,6 +33,7 @@ class CustomUserModel(AbstractUser):
     email = models.EmailField(unique=True)
     google_id = models.CharField(unique=True, blank=True, null=True, max_length=255)
     image = models.URLField(blank=True, null=True)
+    last_activity = models.DateTimeField(null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
