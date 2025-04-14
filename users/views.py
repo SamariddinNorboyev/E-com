@@ -1,6 +1,5 @@
 import requests
 from django.contrib.auth.decorators import login_required
-from django.db.models.signals import post_save
 from django.shortcuts import render, redirect
 from django.views import View
 from config import settings
@@ -8,11 +7,9 @@ from .forms import LoginForm, RegistrForm, ResetPasswordForm, RestorePasswordFor
 from .models import CustomUserModel
 from django.contrib.auth import login, logout
 from .service import send_email_in_thread
+from django.core.exceptions import PermissionDenied
 from .models import Gallery
-from .signals import file_create
-from django.contrib.auth.mixins import PermissionRequiredMixin
 
-# Create your views here.
 class LoginView(View):
     def get(self, request):
         form = LoginForm()
@@ -90,8 +87,7 @@ def google_callback(request):
     return redirect('products:home_page')
 
 
-class ImageUpdatedView(PermissionRequiredMixin, View):
-    permission_required = 'users.add_gallery'
+class ImageUpdatedView(View):
 
     def get(self, request):
         print(request.user)
@@ -101,18 +97,19 @@ class ImageUpdatedView(PermissionRequiredMixin, View):
         return render(request, 'users/images.html', {'form':form, 'images': images})
     def post(self, request):
         user = request.user
-        images = Gallery.objects.filter(user=user)
-        if len(images)>=5:
-            raise ValueError('You can\'t create more than 5 file')
         form = GalleryUpdateForm(request.POST, request.FILES)
+        if not user.groups.filter(name='Premium').exists():
+            image_count = Gallery.objects.filter(user=user).count()
+            if image_count >= 5:
+                raise PermissionDenied("You can't upload more than 5 files.")
         if form.is_valid():
-            image = form.save(commit = False)
-            image.user = request.user
+            image = form.save(commit=False)
+            image.user = user
             image.save()
-            post_save.connect(file_create, sender = Gallery)
             return redirect('users:images')
-        images = Gallery.objects.filter(user = user)
-        return render(request, 'users/images.html', {'form':form, 'images': images})
+
+        images = Gallery.objects.filter(user=user)
+        return render(request, 'users/images.html', {'form': form, 'images': images})
 
 
 def delete_image(request, id):
