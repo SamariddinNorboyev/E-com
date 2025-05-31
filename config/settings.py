@@ -163,12 +163,13 @@ GOOGLE_USER_INFO_URL="https://www.googleapis.com/oauth2/v1/userinfo"
 GOOGLE_TOKEN_URL="https://oauth2.googleapis.com/token"
 
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "samariddin.grex@gmail.com"
-EMAIL_HOST_PASSWORD = "jrtc ital aqsy ereu"
+EMAIL_HOST_USER = 'samariddin.grex@gmail.com'
+EMAIL_HOST_PASSWORD = 'jrtc ital aqsy ereu'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
