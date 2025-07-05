@@ -1,17 +1,12 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from .models import Product
 from django.core.paginator import Paginator
 from .forms import CreateForm, EditForm
-# Create your views here.
 
 @login_required
 def home(request):
     return render(request, 'products/home.html',)
-
-
-
 
 @permission_required('products.add_product', raise_exception=True)
 @login_required
